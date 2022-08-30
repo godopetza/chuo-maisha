@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "899266642975",
+    "project_id": "chuomaisha-ffce6",
+    "storage_bucket": "chuomaisha-ffce6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899266642975:android:657859b17f1a895c20012a",
+        "android_client_info": {
+          "package_name": "com.gopetza.chuomaisha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899266642975-deaqmjpgcorg28f1k3far87jqkg7c8lc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3bczgBYogHK6ixoKcQgSxbVCUpQCuaME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899266642975-deaqmjpgcorg28f1k3far87jqkg7c8lc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
