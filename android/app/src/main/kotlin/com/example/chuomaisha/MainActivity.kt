@@ -1,4 +1,4 @@
-package com.example.chuomaisha
+package com.godopetza.chuomaisha
 
 import io.flutter.embedding.android.FlutterActivity
 

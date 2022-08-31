@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:899266642975:android:657859b17f1a895c20012a",
+        "mobilesdk_app_id": "1:899266642975:android:80d501e61f32d72720012a",
         "android_client_info": {
-          "package_name": "com.gopetza.chuomaisha"
+          "package_name": "com.godopetza.chuomaisha"
         }
       },
       "oauth_client": [
