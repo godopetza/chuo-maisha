@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 ThemeData theme() {
   return ThemeData(
-    primaryColor: const Color.fromARGB(255, 9, 13, 53),
+    primaryColor: const Color.fromARGB(255, 11, 17, 90),
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: const Color(0xFFF4F4F4),
 
-    fontFamily: 'Optima',
+    fontFamily: 'Montserrat',
     textTheme: const TextTheme(
       headline1: TextStyle(
         color: Color.fromARGB(255, 9, 13, 53),

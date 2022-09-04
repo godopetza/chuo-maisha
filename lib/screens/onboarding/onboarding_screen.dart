@@ -1,6 +1,7 @@
+import 'package:chuomaisha/screens/onboarding/onboarding_screens/email_verification_screen.dart';
+import 'package:chuomaisha/screens/onboarding/onboarding_screens/screens.dart';
+import 'package:chuomaisha/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -8,22 +9,59 @@ class OnboardingScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-      settings: RouteSettings(name: routeName),
-      builder: (context) => OnboardingScreen(),
+      settings: const RouteSettings(name: routeName),
+      builder: (context) => const OnboardingScreen(),
     );
   }
 
   static const List<Tab> tabs = <Tab>[
     Tab(text: 'Start'),
     Tab(text: 'Email'),
+    Tab(text: 'Email Verification'),
     Tab(text: 'Demographics'),
     Tab(text: 'Pictures'),
     Tab(text: 'Biography'),
-    Tab(text: 'Location')
+    // Tab(text: 'Location')
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return DefaultTabController(
+      length: tabs.length,
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          if (!tabController.indexIsChanging) {}
+        });
+        return Scaffold(
+          appBar: const CustomAppBar(
+            title: 'CHUOMAISHA',
+            hasActions: false,
+          ),
+          body: TabBarView(
+            children: [
+              Start(
+                tabController: tabController,
+              ),
+              Email(
+                tabController: tabController,
+              ),
+              EmailVerification(
+                tabController: tabController,
+              ),
+              Demo(
+                tabController: tabController,
+              ),
+              Pictures(
+                tabController: tabController,
+              ),
+              Bio(
+                tabController: tabController,
+              ),
+            ],
+          ),
+        );
+      }),
+    );
   }
 }
