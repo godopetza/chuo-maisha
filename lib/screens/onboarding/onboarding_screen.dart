@@ -1,7 +1,10 @@
+import 'package:chuomaisha/cubits/signup/signup_cubit.dart';
+import 'package:chuomaisha/repositories/repositories.dart';
 import 'package:chuomaisha/screens/onboarding/onboarding_screens/email_verification_screen.dart';
 import 'package:chuomaisha/screens/onboarding/onboarding_screens/screens.dart';
 import 'package:chuomaisha/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -10,7 +13,11 @@ class OnboardingScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (context) => const OnboardingScreen(),
+      builder: (context) => BlocProvider(
+        create: (_) =>
+            SignupCubit(authRepository: context.read<AuthRepository>()),
+            child: const OnboardingScreen(),
+      ),
     );
   }
 
@@ -35,7 +42,7 @@ class OnboardingScreen extends StatelessWidget {
         });
         return Scaffold(
           appBar: const CustomAppBar(
-            title: 'C-MAISHA',
+            title: '',
             hasActions: false,
           ),
           body: TabBarView(

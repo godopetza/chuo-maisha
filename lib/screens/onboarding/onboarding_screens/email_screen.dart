@@ -1,4 +1,6 @@
+import 'package:chuomaisha/cubits/signup/signup_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import '../widgets/widgets.dart';
@@ -12,40 +14,61 @@ class Email extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 50,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
+    return BlocBuilder<SignupCubit, SignupState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 50,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomTextHeader(
-                text: 'What\'s your email Address?',
-                tabController: tabController,
+              Column(
+                children: [
+                  CustomTextHeader(
+                      text: 'What\'s your email Address?',
+                      tabController: tabController),
+                  CustomTextField(
+                    hint: 'ENTER YOUR EMAIL',
+                    onChanged: (value) {
+                      context.read<SignupCubit>().emailChanged(value);
+                      print(state.email);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 29,
+                  ),
+                  CustomTextHeader(
+                      text: 'Choose a Password', tabController: tabController),
+                  CustomTextField(
+                    hint: 'ENTER YOUR PASSWORD',
+                    onChanged: (value) {
+                      context.read<SignupCubit>().passwordChanged(value);
+                      print(state.password);
+                    },
+                  ),
+                ],
               ),
-              CustomTextField(
-                tabController: tabController,
-                hint: 'ENTER YOUR EMAIL',
+              Column(
+                children: [
+                  StepProgressIndicator(
+                    totalSteps: 6,
+                    currentStep: 1,
+                    selectedColor: Theme.of(context).primaryColor,
+                    unselectedColor: Theme.of(context).backgroundColor,
+                  ),
+                  const SizedBox(height: 10),
+                  CustomButton(
+                    tabController: tabController,
+                    text: 'NEXT STEP',
+                  ),
+                ],
               ),
             ],
           ),
-          Column(
-            children: [
-              StepProgressIndicator(
-                totalSteps: 6,
-                currentStep: 1,
-                selectedColor: Theme.of(context).primaryColor,
-                unselectedColor: Theme.of(context).backgroundColor,
-              ),
-              const SizedBox(height: 10),
-              CustomButton(tabController: tabController, text: 'NEXT STEP'),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

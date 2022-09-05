@@ -1,3 +1,6 @@
+import 'package:chuomaisha/cubits/signup/signup_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -25,6 +28,9 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           tabController.animateTo(tabController.index + 1);
+          if (tabController.index == 2) {
+            context.read<SignupCubit>().signupWithCredentials();
+          }
         },
         style: ElevatedButton.styleFrom(
           primary: Colors.transparent,

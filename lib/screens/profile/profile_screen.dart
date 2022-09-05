@@ -125,8 +125,8 @@ class ProfileScreen extends StatelessWidget {
                     
                     children: const [
                       CustomTextContainer(text: 'PHP'),
-                      CustomTextContainer(text: 'PHP'),
-                      CustomTextContainer(text: 'PHP'),
+                      CustomTextContainer(text: 'C++'),
+                      CustomTextContainer(text: 'JAVA'),
                     ],
                   ),
                 ],

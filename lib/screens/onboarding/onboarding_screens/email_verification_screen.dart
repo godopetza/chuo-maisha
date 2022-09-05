@@ -12,6 +12,8 @@ class EmailVerification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 30,
@@ -27,12 +29,12 @@ class EmailVerification extends StatelessWidget {
                 tabController: tabController,
               ),
               CustomTextField(
-                tabController: tabController,
                 hint: 'ENTER YOUR CODE',
+                controller: controller,
               ),
             ],
           ),
-Column(
+          Column(
             children: [
               StepProgressIndicator(
                 totalSteps: 6,
@@ -43,7 +45,8 @@ Column(
               const SizedBox(height: 10),
               CustomButton(tabController: tabController, text: 'NEXT STEP'),
             ],
-          ),        ],
+          ),
+        ],
       ),
     );
   }

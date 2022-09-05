@@ -12,6 +12,7 @@ class Bio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
       child: Column(
@@ -25,10 +26,7 @@ class Bio extends StatelessWidget {
                 text: 'Describe Yourself',
                 tabController: tabController,
               ),
-              CustomTextField(
-                hint: 'ENTER YOUR BIO',
-                tabController: tabController,
-              ),
+              CustomTextField(hint: 'ENTER YOUR BIO', controller: controller,),
               const SizedBox(height: 100),
               CustomTextHeader(
                 text: 'What Do You Like?',
