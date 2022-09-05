@@ -4,16 +4,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool hasActions;
+  final bool automaticallyImplyLeading;
 
   const CustomAppBar({
     Key? key,
     required this.title,
     this.hasActions = true,
+    this.automaticallyImplyLeading = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: automaticallyImplyLeading,
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: Row(
@@ -22,7 +25,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             child: SvgPicture.asset('assets/icons/logo.svg', height: 50),
           ),
           Expanded(
-              flex: 3,
+              flex: 2,
               child: Text(
                 title,
                 style: Theme.of(context).textTheme.headline2,

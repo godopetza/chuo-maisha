@@ -35,7 +35,7 @@ class OnboardingScreen extends StatelessWidget {
         });
         return Scaffold(
           appBar: const CustomAppBar(
-            title: 'CHUOMAISHA',
+            title: 'C-MAISHA',
             hasActions: false,
           ),
           body: TabBarView(

@@ -44,7 +44,7 @@ class UsersScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           image: DecorationImage(
-                              image: NetworkImage(user.imageUrls![0]),
+                              image: NetworkImage(user.imageUrls[0]),
                               fit: BoxFit.cover)),
                     ),
                   ),

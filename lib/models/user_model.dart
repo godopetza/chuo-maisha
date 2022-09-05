@@ -3,16 +3,16 @@ import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
   final String name;
-  final String? role;
-  final String? jobTitle;
-  final String? interestedIn;
-  final String? uid;
-  final String? gender;
-  final int? age;
-  final String? location;
-  final String? bio;
+  final String role;
+  final String jobTitle;
+  final String interestedIn;
+  final String uid;
+  final String gender;
+  final int age;
+  final String location;
+  final String bio;
   final List<String> skills;
-  final List<String>? imageUrls;
+  final List<String> imageUrls;
 
   const User({
     required this.name,
@@ -216,7 +216,7 @@ class User extends Equatable {
         jobTitle: 'UX Designer',
       skills: ['Music', 'Economics', 'Football'],
     ),
-    const User(
+     const User(
         name: 'Anita',
         uid: '9',
         role: 'Senior BA',

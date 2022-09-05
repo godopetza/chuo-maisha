@@ -23,7 +23,7 @@ class UserCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(user.imageUrls![0])),
+                      fit: BoxFit.cover, image: NetworkImage(user.imageUrls[0])),
                   borderRadius: BorderRadius.circular(5.0),
                   boxShadow: [
                     BoxShadow(
@@ -66,10 +66,10 @@ class UserCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      UserImageSmall(imageUrl: user.imageUrls![1]),
-                      UserImageSmall(imageUrl: user.imageUrls![2]),
-                      UserImageSmall(imageUrl: user.imageUrls![3]),
-                      UserImageSmall(imageUrl: user.imageUrls![4]),
+                      UserImageSmall(imageUrl: user.imageUrls[1]),
+                      UserImageSmall(imageUrl: user.imageUrls[2]),
+                      UserImageSmall(imageUrl: user.imageUrls[3]),
+                      UserImageSmall(imageUrl: user.imageUrls[4]),
                       const SizedBox(
                         width: 10,
                       ),
