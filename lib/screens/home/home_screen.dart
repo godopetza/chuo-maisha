@@ -3,7 +3,6 @@ import 'package:chuomaisha/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/swipe/swipe_bloc.dart';
-import '../../models/user_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -45,12 +44,10 @@ class HomeScreen extends StatelessWidget {
                         context
                             .read<SwipeBloc>()
                             .add(SwipeLeft(user: state.users[0]));
-                        print('Swiped Left');
                       } else {
                         context
                             .read<SwipeBloc>()
                             .add(SwipeRight(user: state.users[0]));
-                        print('Swiped Right');
                       }
                     },
                   ),
@@ -68,7 +65,6 @@ class HomeScreen extends StatelessWidget {
                           context
                               .read<SwipeBloc>()
                               .add(SwipeLeft(user: state.users[0]));
-                          print('Swiped Left');
                         },
                         child: ChoiceButton(
                             width: 60,
@@ -83,7 +79,6 @@ class HomeScreen extends StatelessWidget {
                           context
                               .read<SwipeBloc>()
                               .add(SwipeRight(user: state.users[0]));
-                          print('Swiped Right');
                         },
                         child: const ChoiceButton(
                             width: 80,

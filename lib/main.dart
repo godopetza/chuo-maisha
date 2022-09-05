@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         title: 'Chuo Maisha',
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: OnboardingScreen.routeName,
+        initialRoute: MatchesScreen.routeName,
       ),
     );
   }
