@@ -14,56 +14,54 @@ class Demo extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TextEditingController();
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 30,
-          vertical: 50,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextHeader(
-                  text: 'What\'s your gender?',
-                  tabController: tabController,
-                ),
-                const SizedBox(height: 20),
-                CustomCheckbox(
-                  text: 'MALE',
-                  tabController: tabController,
-                ),
-                CustomCheckbox(
-                  text: 'FEMALE',
-                  tabController: tabController,
-                ),
-                const SizedBox(height: 20),
-                CustomTextHeader(
-                  text: 'What\'s your Age?',
-                  tabController: tabController,
-                ),
-                CustomTextField(
-                  hint: 'ENTER YOUR AGE',
-                  controller: controller,
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                StepProgressIndicator(
-                  totalSteps: 6,
-                  currentStep: 3,
-                  selectedColor: Theme.of(context).primaryColor,
-                  unselectedColor: Theme.of(context).backgroundColor,
-                ),
-                const SizedBox(height: 10),
-                CustomButton(tabController: tabController, text: 'NEXT STEP'),
-              ],
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 30,
+        vertical: 50,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextHeader(
+                text: 'What\'s your gender?',
+                tabController: tabController,
+              ),
+              const SizedBox(height: 15),
+              CustomCheckbox(
+                text: 'MALE',
+                tabController: tabController,
+              ),
+              CustomCheckbox(
+                text: 'FEMALE',
+                tabController: tabController,
+              ),
+              const SizedBox(height: 3),
+              CustomTextHeader(
+                text: 'What\'s your Age?',
+                tabController: tabController,
+              ),
+              CustomTextField(
+                hint: 'ENTER YOUR AGE',
+                controller: controller,
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              StepProgressIndicator(
+                totalSteps: 6,
+                currentStep: 3,
+                selectedColor: Theme.of(context).primaryColor,
+                unselectedColor: Theme.of(context).backgroundColor,
+              ),
+              const SizedBox(height: 10),
+              CustomButton(tabController: tabController, text: 'NEXT STEP'),
+            ],
+          ),
+        ],
       ),
     );
   }
