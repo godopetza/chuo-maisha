@@ -22,41 +22,60 @@ class Location extends StatelessWidget {
           );
         }
         if (state is OnboardingLoaded) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CustomTextHeader(text: 'Where Are You?'),
-                    CustomTextField(
-                      hint: 'ENTER YOUR LOCATION',
-                      onChanged: (value) {
-                        context.read<OnboardingBloc>().add(
-                              UpdateUser(
-                                user: state.user.copyWith(location: value),
-                              ),
-                            );
-                      },
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    StepProgressIndicator(
-                      totalSteps: 6,
-                      currentStep: 6,
-                      selectedColor: Theme.of(context).primaryColor,
-                      unselectedColor: Theme.of(context).backgroundColor,
-                    ),
-                    const SizedBox(height: 10),
-                    CustomButton(tabController: tabController, text: 'DONE'),
-                  ],
-                ),
-              ],
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomTextHeader(text: 'Where Are You?'),
+                      CustomTextField(
+                        hint: 'ENTER YOUR LOCATION',
+                        onChanged: (value) {
+                          context.read<OnboardingBloc>().add(
+                                UpdateUser(
+                                  user: state.user.copyWith(location: value),
+                                ),
+                              );
+                        },
+                      ),
+                      const CustomTextHeader(text: 'What are you looking for?'),
+                      CustomCheckbox(
+                        text: 'WORK',
+                        value: state.user.interestedIn == 'WORK',
+                        onChanged: (bool? newValue) {
+                          context.read<OnboardingBloc>().add(UpdateUser(
+                              user: state.user.copyWith(interestedIn: 'WORK')));
+                        },
+                      ),
+                      CustomCheckbox(
+                        text: 'HIRING',
+                        value: state.user.interestedIn == 'HIRING',
+                        onChanged: (bool? newValue) {
+                          context.read<OnboardingBloc>().add(UpdateUser(
+                              user: state.user.copyWith(interestedIn: 'HIRING')));
+                        },
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      StepProgressIndicator(
+                        totalSteps: 6,
+                        currentStep: 6,
+                        selectedColor: Theme.of(context).primaryColor,
+                        unselectedColor: Theme.of(context).backgroundColor,
+                      ),
+                      const SizedBox(height: 10),
+                      CustomButton(tabController: tabController, text: 'DONE'),
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         } else {

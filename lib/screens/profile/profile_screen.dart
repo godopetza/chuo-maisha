@@ -120,6 +120,12 @@ class ProfileScreen extends StatelessWidget {
                             CustomTextContainer(text: state.user.skills[0]),
                           ],
                         ),
+                        TitleWithIcon(title: 'Looking for', icon: Icons.edit),
+                        Row(
+                          children: [
+                            CustomTextContainer(text: state.user.interestedIn),
+                          ],
+                        ),
                         TextButton(
                           onPressed: () {
                             RepositoryProvider.of<AuthRepository>(context)

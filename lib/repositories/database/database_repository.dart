@@ -51,4 +51,15 @@ class DatabaseRepository extends BaseDatabaseRepository {
       'imageUrls': FieldValue.arrayUnion([downloadUrl])
     });
   }
+
+  @override
+  Stream<List<User>> getUsers(String userId, String interestedIn) {
+    return _firebaseFirestore
+        .collection('users')
+        .where('interestedIn', isNotEqualTo: interestedIn)
+        .snapshots()
+        .map((snap) {
+      return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
+    });
+  }
 }
