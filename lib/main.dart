@@ -27,6 +27,12 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => StorageRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => DatabaseRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -49,10 +55,19 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => OnboardingBloc(
-              databaseRepository: DatabaseRepository(),
-              storageRepository: StorageRepository(),
+              databaseRepository: context.read<DatabaseRepository>(),
+              storageRepository: context.read<StorageRepository>(),
             ),
-          )
+          ),
+          BlocProvider(
+            create: (context) => ProfileBloc(
+              authBloc: BlocProvider.of<AuthBloc>(context),
+              databaseRepository: context.read<DatabaseRepository>(),
+            )..add(
+                LoadProfile(
+                    userId: BlocProvider.of<AuthBloc>(context).state.user!.uid),
+              ),
+          ),
         ],
         child: MaterialApp(
           title: 'Chuo Maisha',
