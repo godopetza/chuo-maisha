@@ -1,13 +1,13 @@
-import 'package:chuomaisha/blocs/auth/auth_bloc.dart';
-import 'package:chuomaisha/blocs/swipe/swipe_bloc.dart';
 import 'package:chuomaisha/config/app_router.dart';
 import 'package:chuomaisha/config/theme.dart';
+import 'package:chuomaisha/cubits/signup/signup_cubit.dart';
 import 'package:chuomaisha/repositories/repositories.dart';
 import 'package:chuomaisha/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'blocs/blocs.dart';
 import 'models/models.dart';
 
 void main() async {
@@ -25,28 +25,40 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (_) => AuthRepository(),
+          create: (context) => AuthRepository(),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => AuthBloc(
+            create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
             ),
           ),
           BlocProvider(
-            create: (_) => SwipeBloc()
+            create: (context) => SwipeBloc()
               ..add(
-                LoadUsers(users: User.users),
+                LoadUsers(
+                    users: User.users.where((user) => user.uid != 1).toList()),
               ),
           ),
+          BlocProvider<SignupCubit>(
+            create: (context) => SignupCubit(
+              authRepository: context.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => OnboardingBloc(
+              databaseRepository: DatabaseRepository(),
+              storageRepository: StorageRepository(),
+            ),
+          )
         ],
         child: MaterialApp(
           title: 'Chuo Maisha',
           theme: theme(),
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: OnboardingScreen.routeName,
+          initialRoute: SplashScreen.routeName,
         ),
       ),
     );

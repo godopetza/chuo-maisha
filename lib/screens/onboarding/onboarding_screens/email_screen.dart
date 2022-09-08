@@ -26,9 +26,9 @@ class Email extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  CustomTextHeader(
+                  const CustomTextHeader(
                       text: 'What\'s your email Address?',
-                      tabController: tabController),
+                      ),
                   CustomTextField(
                     hint: 'ENTER YOUR EMAIL',
                     onChanged: (value) {
@@ -39,8 +39,8 @@ class Email extends StatelessWidget {
                   const SizedBox(
                     height: 29,
                   ),
-                  CustomTextHeader(
-                      text: 'Choose a Password', tabController: tabController),
+                  const CustomTextHeader(
+                      text: 'Choose a Password',),
                   CustomTextField(
                     hint: 'ENTER YOUR PASSWORD',
                     onChanged: (value) {

@@ -1,4 +1,6 @@
+import 'package:chuomaisha/blocs/blocs.dart';
 import 'package:chuomaisha/cubits/signup/signup_cubit.dart';
+import 'package:chuomaisha/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
@@ -26,10 +28,34 @@ class CustomButton extends StatelessWidget {
         ),
       ),
       child: ElevatedButton(
-        onPressed: () {
-          tabController.animateTo(tabController.index + 1);
+        onPressed: () async {
+          if (tabController.index == 5) {
+            Navigator.pushNamed(context, '/');
+            
+          } else {
+            tabController.animateTo(tabController.index + 1);
+          }
+
           if (tabController.index == 2) {
-            context.read<SignupCubit>().signupWithCredentials();
+            await context.read<SignupCubit>().signupWithCredentials();
+
+            User user = User(
+              name: '',
+              uid: context.read<SignupCubit>().state.user!.uid,
+              role: '',
+              interestedIn: '',
+              gender: '',
+              age: 0,
+              location: '',
+              imageUrls: [],
+              jobTitle: '',
+              skills: [],
+              bio: '',
+            );
+
+            context.read<OnboardingBloc>().add(
+                  StartOnboarding(user: user),
+                );
           }
         },
         style: ElevatedButton.styleFrom(

@@ -1,6 +1,6 @@
+import 'package:chuomaisha/blocs/blocs.dart';
 import 'package:chuomaisha/cubits/signup/signup_cubit.dart';
 import 'package:chuomaisha/repositories/repositories.dart';
-import 'package:chuomaisha/screens/onboarding/onboarding_screens/email_verification_screen.dart';
 import 'package:chuomaisha/screens/onboarding/onboarding_screens/screens.dart';
 import 'package:chuomaisha/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +13,7 @@ class OnboardingScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (context) => BlocProvider(
-        create: (_) =>
-            SignupCubit(authRepository: context.read<AuthRepository>()),
-            child: const OnboardingScreen(),
-      ),
+      builder: (context) => OnboardingScreen(),
     );
   }
 
@@ -28,7 +24,7 @@ class OnboardingScreen extends StatelessWidget {
     Tab(text: 'Demographics'),
     Tab(text: 'Pictures'),
     Tab(text: 'Biography'),
-    // Tab(text: 'Location')
+    Tab(text: 'Location')
   ];
 
   @override
@@ -37,9 +33,7 @@ class OnboardingScreen extends StatelessWidget {
       length: tabs.length,
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {}
-        });
+
         return Scaffold(
           appBar: const CustomAppBar(
             title: '',
@@ -63,6 +57,9 @@ class OnboardingScreen extends StatelessWidget {
                 tabController: tabController,
               ),
               Bio(
+                tabController: tabController,
+              ),
+              Location(
                 tabController: tabController,
               ),
             ],

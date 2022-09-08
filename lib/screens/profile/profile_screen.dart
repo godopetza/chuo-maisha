@@ -1,6 +1,10 @@
+import 'package:chuomaisha/blocs/auth/auth_bloc.dart';
+import 'package:chuomaisha/repositories/auth/auth_repository.dart';
+import 'package:chuomaisha/screens/onboarding/onboarding_screen.dart';
 import 'package:chuomaisha/screens/onboarding/widgets/custom_text_container.dart';
 import 'package:chuomaisha/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/models.dart';
 
@@ -10,9 +14,15 @@ class ProfileScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (context) => ProfileScreen(),
-    );
+        settings: const RouteSettings(name: routeName),
+        builder: (context) {
+          print(BlocProvider.of<AuthBloc>(context).state.status);
+
+          return (BlocProvider.of<AuthBloc>(context).state.status ==
+                  AuthStatus.unauthenticated)
+              ? OnboardingScreen()
+              : ProfileScreen();
+        });
   }
 
   @override
@@ -102,10 +112,10 @@ class ProfileScreen extends StatelessWidget {
                               width: 100,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(color: Theme.of(context).primaryColor),
+                                  border: Border.all(
+                                      color: Theme.of(context).primaryColor),
                                   image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    
+                                      fit: BoxFit.cover,
                                       image:
                                           NetworkImage(user.imageUrls[index]))),
                             ),
@@ -122,13 +132,26 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const TitleWithIcon(title: 'Skills', icon: Icons.edit),
                   Row(
-                    
                     children: const [
                       CustomTextContainer(text: 'PHP'),
                       CustomTextContainer(text: 'C++'),
                       CustomTextContainer(text: 'JAVA'),
                     ],
                   ),
+                  TextButton(
+                    onPressed: () {
+                      RepositoryProvider.of<AuthRepository>(context).signOut();
+                    },
+                    child: Center(
+                      child: Text(
+                        'Sign Out',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

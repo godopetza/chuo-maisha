@@ -1,19 +1,37 @@
 import 'dart:io';
 
-import 'package:chuomaisha/repositories/storage/base_storage_repository.dart';
+import 'package:chuomaisha/repositories/repositories.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
+
+import '../../models/models.dart';
 
 class StorageRepository extends BaseStorageRepository {
   final firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
   @override
-  Future<void> uploadImage(XFile image) async {
+  Future<void> uploadImage(User user, XFile image) async {
     try {
-      await storage.ref('user_1/${image.name}').putFile(
+      await storage
+          .ref('${user.uid}/${image.name}')
+          .putFile(
             File(image.path),
+          )
+          .then(
+            (p0) => DatabaseRepository().updateUserPictures(
+              user,
+              image.name,
+            ),
           );
     } catch (_) {}
+  }
+
+  @override
+  Future<String> getDownloadURL(User user, String imageName) async {
+    String downloadURL =
+        await storage.ref('${user.uid}/$imageName').getDownloadURL();
+
+    return downloadURL;
   }
 }

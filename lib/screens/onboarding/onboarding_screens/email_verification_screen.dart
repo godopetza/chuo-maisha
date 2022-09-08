@@ -24,9 +24,8 @@ class EmailVerification extends StatelessWidget {
         children: [
           Column(
             children: [
-              CustomTextHeader(
+              const CustomTextHeader(
                 text: 'Did You Get The Verification Code?',
-                tabController: tabController,
               ),
               CustomTextField(
                 hint: 'ENTER YOUR CODE',
