@@ -1,3 +1,5 @@
+
+
 # Miscellaneous
 *.class
 *.log
@@ -45,3 +47,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#files
+android/app/src/main/AndroidManifest.xml
+ios/Runner/AppDelegate.swift
