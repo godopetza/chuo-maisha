@@ -26,8 +26,10 @@ class SplashScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: BlocListener<AuthBloc, AuthState>(
+        listenWhen: (previous, current) =>
+            previous.authUser != current.authUser,
         listener: (context, state) {
-          print('Listener');
+          print('Splash Screen Listener');
 
           if (state.status == AuthStatus.unauthenticated) {
             Timer(

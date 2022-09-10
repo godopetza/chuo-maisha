@@ -50,6 +50,9 @@ class CustomButton extends StatelessWidget {
               imageUrls: [],
               jobTitle: '',
               skills: [],
+              matches: [],
+              swipeLeft: [],
+              swipeRight: [],
               bio: '',
             );
 
