@@ -23,7 +23,7 @@
             <manifest ...
                 <application ...
                     <meta-data android:name="com.google.android.geo.API_KEY"
-                            android:value="AIzaSyBsIbv5NPdMf1CSlf22fQzUViIOTiGgJgM"/>
+                            android:value="KEY HERE"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
