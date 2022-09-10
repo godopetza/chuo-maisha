@@ -1,3 +1,4 @@
+import 'package:chuomaisha/blocs/blocs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,8 +14,14 @@ class User extends Equatable {
   final String bio;
   final List<dynamic> skills;
   final List<dynamic> imageUrls;
+  final List<String>? swipeLeft;
+  final List<String>? matches;
+  final List<String>? swipeRight;
 
   const User({
+    this.swipeLeft,
+    this.matches,
+    this.swipeRight,
     required this.name,
     required this.uid,
     required this.role,
@@ -41,6 +48,9 @@ class User extends Equatable {
         jobTitle,
         skills,
         bio,
+        swipeLeft,
+        swipeRight,
+        matches
       ];
 
   static User fromSnapshot(DocumentSnapshot snap) {
@@ -53,6 +63,15 @@ class User extends Equatable {
         interestedIn: snap['interestedIn'],
         gender: snap['gender'],
         age: snap['age'],
+        swipeLeft: (snap['swipeLeft'] as List)
+            .map((swipeLeft) => swipeLeft as String)
+            .toList(),
+        swipeRight: (snap['swipeRight'] as List)
+            .map((swipeRight) => swipeRight as String)
+            .toList(),
+        matches: (snap['matches'] as List)
+            .map((matches) => matches as String)
+            .toList(),
         location: snap['location'],
         imageUrls: snap['imageUrls'],
         jobTitle: snap['jobTitle']);
@@ -71,6 +90,9 @@ class User extends Equatable {
       'jobTitle': jobTitle,
       'skills': skills,
       'bio': bio,
+      'swipeLeft': swipeLeft,
+      'swipeRight': swipeRight,
+      'matches': matches,
     };
   }
 
@@ -84,8 +106,11 @@ class User extends Equatable {
     int? age,
     String? location,
     String? bio,
-    List<String>? skills,
-    List<String>? imageUrls,
+    List<dynamic>? skills,
+    List<dynamic>? imageUrls,
+    List<String>? swipeRight,
+    List<String>? swipeLeft,
+    List<String>? matches,
   }) {
     return User(
       uid: uid ?? this.uid,
@@ -99,6 +124,9 @@ class User extends Equatable {
       bio: bio ?? this.bio,
       jobTitle: jobTitle ?? this.jobTitle,
       skills: skills ?? this.skills,
+      swipeRight: swipeRight ?? this.swipeRight,
+      swipeLeft: swipeLeft ?? this.swipeLeft,
+      matches: matches ?? this.matches,
     );
   }
 

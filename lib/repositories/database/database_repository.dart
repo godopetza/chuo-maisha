@@ -23,23 +23,17 @@ class DatabaseRepository extends BaseDatabaseRepository {
         .collection('users')
         .doc(user.uid)
         .set(user.toMap());
-
-    //   //   .add(user.toMap())
-    //   .then((value) {
-    // print('User added! ID: ${value}');
-    // return value.id;
-    // });
-
-    // return documentId;
   }
 
   @override
-  Future<void> updateUser(User user) {
+  Future<void> updateUser(User user) async {
     return _firebaseFirestore
         .collection('users')
         .doc(user.uid)
         .update(user.toMap())
-        .then((value) => print('User document updated.'));
+        .then(
+          (value) => print('User document updated.'),
+        );
   }
 
   @override
@@ -53,13 +47,48 @@ class DatabaseRepository extends BaseDatabaseRepository {
   }
 
   @override
-  Stream<List<User>> getUsers(String userId, String interestedIn) {
+  Stream<List<User>> getUsers(User user) {
+    List<String> userFilter = List.from(user.swipeLeft!)
+      ..addAll(user.swipeRight!)
+      ..add(user.uid!)
+      ..add(user.interestedIn);
+
     return _firebaseFirestore
         .collection('users')
-        .where('interestedIn', isNotEqualTo: interestedIn)
+        // .where(FieldPath.documentId, whereNotIn: userFilter)
+
         .snapshots()
         .map((snap) {
       return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
+    });
+  }
+
+  @override
+  Future<void> updateUserSwipe(
+    String userId,
+    String matchId,
+    bool isSwipeRight,
+  ) async {
+    if (isSwipeRight) {
+      await _firebaseFirestore.collection('users').doc(userId).update({
+        'swipeRight': FieldValue.arrayUnion([matchId])
+      });
+    } else {
+      await _firebaseFirestore.collection('users').doc(userId).update({
+        'swipeLeft': FieldValue.arrayUnion([matchId])
+      });
+    }
+  }
+
+  @override
+  Future<void> updateUserMatch(String userId, String matchId) async {
+    //Update current user doc
+    await _firebaseFirestore.collection('users').doc(userId).update({
+      'matches': FieldValue.arrayUnion([matchId])
+    });
+    //Update other user doc
+    await _firebaseFirestore.collection('users').doc(matchId).update({
+      'matches': FieldValue.arrayUnion([userId])
     });
   }
 }
