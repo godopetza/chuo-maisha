@@ -4,6 +4,7 @@ import 'package:chuomaisha/models/models.dart';
 import 'package:chuomaisha/models/user_model.dart';
 import 'package:chuomaisha/repositories/repositories.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 
 class DatabaseRepository extends BaseDatabaseRepository {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -49,18 +50,32 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<List<User>> getUsers(User user) {
-    List<String> userFilter = List.from(user.swipeLeft!)
-      ..addAll(user.swipeRight!)
-      ..add(user.uid!)
-      ..add(user.interestedIn);
-
     return _firebaseFirestore
         .collection('users')
-        // .where(FieldPath.documentId, whereNotIn: userFilter)
-
+        .where('interestedIn', isEqualTo: _selectInterest(user))
         .snapshots()
         .map((snap) {
       return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
+    });
+  }
+
+  @override
+  Stream<List<User>> getUsersToSwipe(User user) {
+    return Rx.combineLatest2(getUser(user.uid!), getUsers(user), (
+      User currentUser,
+      List<User> users,
+    ) {
+      return users.where((user) {
+        if (currentUser.swipeLeft!.contains(user.uid)) {
+          return false;
+        } else if (currentUser.swipeRight!.contains(user.uid)) {
+          return false;
+        } else if (currentUser.matches!.contains(user.uid)) {
+          return false;
+        } else {
+          return true;
+        }
+      }).toList();
     });
   }
 
@@ -95,16 +110,27 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<List<Match>> getMatches(User user) {
-    List<String> userFilter = List.from(user.matches!)..add('0');
-
-    return _firebaseFirestore
-        .collection('users')
-        .where(FieldPath.documentId, whereIn: userFilter)
-        .snapshots()
-        .map((snap) {
-      return snap.docs
-          .map((doc) => Match.fromSnapshot(doc, user.uid!))
+    return Rx.combineLatest2(getUser(user.uid!), getUsers(user), (
+      User currentUser,
+      List<User> users,
+    ) {
+      return users
+          .where((user) => currentUser.matches!.contains(user.uid))
+          .map((user) => Match(userId: user.uid!, matchedUser: user))
           .toList();
     });
+
+    // return _firebaseFirestore
+    //     .collection('users')
+    //     .snapshots()
+    //     .map((snap) {
+    //   return snap.docs
+    //       .map((doc) => Match.fromSnapshot(doc, user.uid!))
+    //       .toList();
+    // });
+  }
+
+  _selectInterest(User user) {
+    return (user.interestedIn == 'HIRING') ? 'WORK' : 'HIRING';
   }
 }

@@ -1,8 +1,5 @@
 import 'package:chuomaisha/repositories/repositories.dart';
-import 'package:chuomaisha/widgets/custom_app_bar.dart';
-import 'package:chuomaisha/widgets/user_image_small.dart';
 import 'package:chuomaisha/widgets/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
