@@ -28,7 +28,7 @@ class AppRouter {
       case LoginScreen.routeName:
         return LoginScreen.route();
       case ChatScreen.routeName:
-        return ChatScreen.route(userMatch: settings.arguments as UserMatch);
+        return ChatScreen.route(userMatch: settings.arguments as Match);
       default:
         return _errorRoute();
     }

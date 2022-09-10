@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../models/models.dart';
 
 class ChatScreen extends StatelessWidget {
-  final UserMatch userMatch;
+  final Match userMatch;
   const ChatScreen({Key? key, required this.userMatch}) : super(key: key);
   static const String routeName = '/chat';
 
-  static Route route({required UserMatch userMatch}) {
+  static Route route({required Match userMatch}) {
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
       builder: (context) => ChatScreen(userMatch: userMatch),
@@ -111,7 +111,8 @@ class ChatScreen extends StatelessWidget {
             height: 80,
             child: Row(
               children: [
-                Container(decoration: BoxDecoration(
+                Container(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Theme.of(context).primaryColor,
                   ),
@@ -128,13 +129,13 @@ class ChatScreen extends StatelessWidget {
                       fillColor: Colors.white,
                       hintText: 'Type Here...',
                       contentPadding:
-                                EdgeInsets.only(left: 20, bottom: 5, top: 5),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
+                          EdgeInsets.only(left: 20, bottom: 5, top: 5),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

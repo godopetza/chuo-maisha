@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chuomaisha/models/models.dart';
 import 'package:chuomaisha/models/user_model.dart';
 import 'package:chuomaisha/repositories/repositories.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -89,6 +90,21 @@ class DatabaseRepository extends BaseDatabaseRepository {
     //Update other user doc
     await _firebaseFirestore.collection('users').doc(matchId).update({
       'matches': FieldValue.arrayUnion([userId])
+    });
+  }
+
+  @override
+  Stream<List<Match>> getMatches(User user) {
+    List<String> userFilter = List.from(user.matches!)..add('0');
+
+    return _firebaseFirestore
+        .collection('users')
+        .where(FieldPath.documentId, whereIn: userFilter)
+        .snapshots()
+        .map((snap) {
+      return snap.docs
+          .map((doc) => Match.fromSnapshot(doc, user.uid!))
+          .toList();
     });
   }
 }
